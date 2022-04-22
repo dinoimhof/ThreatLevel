@@ -11,25 +11,29 @@
 
 // Highlight function
 function highlight() {
-    let FilterA = document.querySelectorAll('a[bgcol]');
-    let selectedA = FilterA[Math.floor(Math.random() * FilterA.length)];
-    let color = selectedA.getAttribute("bgcol");
-
-    if (selectedA.style.backgroundColor.toLowerCase() == color.toLowerCase()) {
-        selectedA.style.backgroundColor = "transparent";
-    } else {
-        if (Math.random() > 0.5) {
-            selectedA.style.backgroundColor = color;
+    let highlightElement = highlightedElements[Math.floor(Math.random() * highlightedElements.length)];
+    let highlightColor = highlightElement.getAttribute("bgcol");
+    if (isInViewport(highlightElement)) {
+        if (highlightElement.style.backgroundColor.toLowerCase() == highlightColor.toLowerCase()) {
+            highlightElement.style.backgroundColor = "transparent";
+        } else {
+            if (Math.random() > 0.6) {
+                highlightElement.style.backgroundColor = highlightColor;
+            }
         }
     }
 }
 
 // Decode function
 function decode() {
-    const randomLink = listOfLinks[Math.floor(Math.random() * listOfLinks.length)];
-    const decode = new TextScramble(randomLink);
-    const output = randomLink.textContent;
-    decode.setText(output);
+    let decodeElement = listOfElements[Math.floor(Math.random() * listOfElements.length)];
+    let decodeText = decodeElement.textContent;
+    if (isInViewport(decodeElement)) {
+        let textScramble = new TextScramble(decodeElement);
+        textScramble.setText(decodeText);
+    } else {
+        decode();
+    }
 }
 
 // Throttle function
@@ -41,6 +45,13 @@ function throttle(func, wait) {
             time = Date.now();
         }
     }
+}
+
+// Function to verify if element is in viewport
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        && rect.right <= (window.innerWidth || document.documentElement.clientWidth));
 }
 
 // Text scramble effect - more or less copy paste :)
@@ -94,16 +105,3 @@ class TextScramble {
         return this.chars[Math.floor(Math.random() * this.chars.length)]
     }
 }
-
-/***************
- Function calls
- ***************/
-
-// List of links (could be replaced with other attributes)
-const listOfLinks = document.querySelectorAll("a");
-
-// Set interval for highlight function
-setInterval(highlight, 500);
-
-// Call decode function on scroll, needs to be throttled
-window.addEventListener('scroll', throttle(decode, 1000));
