@@ -20,3 +20,5 @@ window.addEventListener('scroll', highlight);
 
 // Call decode function on scroll, needs to be throttled
 window.addEventListener('scroll', throttle(decode, 1000));
+
+// Test comment to verify if file gets updated to the site
