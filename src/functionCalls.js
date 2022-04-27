@@ -21,5 +21,11 @@ window.addEventListener('scroll', highlight);
 // Call decode function on scroll, needs to be throttled
 window.addEventListener('scroll', throttle(decode, 1000));
 
-// Test comment to verify if file gets updated to the site
-// Add another comment to verify synchronisation
+/********************************
+ Hide "upcoming" on landing page
+ ********************************/
+if (window.location.pathname == "/") {
+        document.getElementById("upcoming").style.opacity = 0;
+    } else {
+        document.getElementById("upcoming").style.opacity = 1;
+    }
