@@ -16,7 +16,7 @@ listOfElements = document.querySelectorAll("a");
 highlightedElements = document.querySelectorAll("a[bgcol]");
 
 // Call highlight function on scroll, no need to be throttled
-window.addEventListener('scroll', throttle(highlight, 200));
+window.addEventListener('scroll', highlight);
 
 // Call decode function on scroll, needs to be throttled
 window.addEventListener('scroll', throttle(decode, 1000));
