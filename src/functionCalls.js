@@ -22,3 +22,4 @@ window.addEventListener('scroll', highlight);
 window.addEventListener('scroll', throttle(decode, 1000));
 
 // Test comment to verify if file gets updated to the site
+// Add another comment to verify synchronisation
